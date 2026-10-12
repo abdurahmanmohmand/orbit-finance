@@ -1,317 +1,510 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Orbit Premium — Enterprise Finance Workspace</title>
-    <style>
-        /* --- Design Tokens & CSS Custom Properties --- */
-        :root {
-            --bg-primary: #f8fafc;
-            --bg-secondary: #ffffff;
-            --text-primary: #0f172a;
-            --text-secondary: #64748b;
-            --accent-green: #10b981;
-            --accent-blue: #3b82f6;
-            --accent-purple: #8b5cf6;
-            --border-color: #e2e8f0;
-            --card-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.05), 0 2px 4px -2px rgb(0 0 0 / 0.05);
-            --sidebar-width: 260px;
-        }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Vault — Smart Finance</title>
+<h1>Welcome, Abdul Rahman Mohmand! 👋</h1>
+<p>Your money, your goals, your future. 🚀</p>
+<style>
+:root {
+    --bg: #f4f7fb;
+    --card: #ffffff;
+    --text: #172033;
+    --muted: #7b8497;
+    --green: #15b981;
+    --border: #e8edf4;
+}
+body.dark {
+    --bg: #101522;
+    --card: #1b2333;
+    --text: #f4f7fb;
+    --muted: #a3aec2;
+    --border: #30394b;
+}
+* { box-sizing: border-box; }
 
-        body.dark-theme {
-            --bg-primary: #0b0f19;
-            --bg-secondary: #111827;
-            --text-primary: #f8fafc;
-            --text-secondary: #94a3b8;
-            --border-color: #1f2937;
-            --card-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.3);
-        }
+body {
+    margin: 0;
+    font-family: Inter, Arial, sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    transition: .25s;
+}
+button { cursor: pointer; font: inherit; }
 
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-        }
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 22px 6%;
+    border-bottom: 1px solid var(--border);
+    background: var(--card);
+}
+.logo { font-size: 25px; font-weight: 800; letter-spacing: -1px; }
+.logo span { color: var(--green); }
+.header-right { display: flex; gap: 12px; align-items: center; }
 
-        body {
-            font-family: 'Inter', system-ui, -apple-system, sans-serif;
-            background-color: var(--bg-primary);
-            color: var(--text-primary);
-            display: flex;
-            min-height: 100vh;
-            transition: background-color 0.2s, color 0.2s;
-        }
+.pill {
+    border: 1px solid var(--border);
+    background: var(--card);
+    color: var(--text);
+    border-radius: 12px;
+    padding: 10px 14px;
+}
 
-        button {
-            cursor: pointer;
-            font: inherit;
-            border: none;
-            background: none;
-            transition: all 0.2s;
-        }
+main { max-width: 1200px; margin: auto; padding: 35px 22px; }
 
-        /* --- Application Layout Shell --- */
-        .sidebar {
-            width: var(--sidebar-width);
-            background-color: var(--bg-secondary);
-            border-right: 1px solid var(--border-color);
-            padding: 24px;
-            display: flex;
-            flex-direction: column;
-            position: fixed;
-            height: 100vh;
-        }
+.welcome {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 15px;
+    margin-bottom: 25px;
+}
+h1 { margin: 0 0 8px; font-size: clamp(27px, 4vw, 38px); }
+p { color: var(--muted); margin-top: 5px; }
+.eyebrow {
+    color: var(--green);
+    font-size: 12px;
+    font-weight: 800;
+    letter-spacing: 2px;
+}
+.primary {
+    background: var(--green);
+    color: white;
+    border: 0;
+    border-radius: 12px;
+    padding: 13px 18px;
+    font-weight: 700;
+}
+.primary:hover { filter: brightness(.93); transform: translateY(-1px); }
 
-        .main-wrapper {
-            margin-left: var(--sidebar-width);
-            flex: 1;
-            display: flex;
-            flex-direction: column;
-            min-width: 0;
-        }
+.grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 18px;
+}
+.card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    padding: 23px;
+    border-radius: 20px;
+    box-shadow: 0 5px 22px #17203308;
+    min-width: 0;
+}
+.card-title {
+    color: var(--muted);
+    font-size: 14px;
+    display: flex;
+    justify-content: space-between;
+    gap: 10px;
+}
+.amount { font-size: clamp(23px, 3vw, 31px); font-weight: 800; margin: 17px 0 8px; }
+.positive { color: var(--green); font-size: 13px; }
 
-        header {
-            background-color: var(--bg-secondary);
-            border-bottom: 1px solid var(--border-color);
-            padding: 16px 40px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
+.balance {
+    background: linear-gradient(130deg, #123d35, #15b981);
+    color: white;
+    position: relative;
+    overflow: hidden;
+}
+.balance::after {
+    content: "";
+    position: absolute;
+    width: 190px;
+    height: 190px;
+    border: 35px solid #ffffff14;
+    border-radius: 50%;
+    right: -60px;
+    top: 30px;
+}
+.balance .card-title, .balance p { color: #d4f7e9; }
+.balance .amount { font-size: clamp(28px, 4vw, 38px); }
+.balance button {
+    border: 1px solid #ffffff70;
+    border-radius: 10px;
+    color: white;
+    background: #ffffff18;
+    padding: 10px 14px;
+}
 
-        .content-container {
-            padding: 40px;
-            max-width: 1400px;
-            width: 100%;
-            margin: 0 auto;
-        }
+.wide { grid-column: span 2; }
+.section-title { font-size: 19px; margin: 0 0 22px; }
+.chart {
+    height: 190px;
+    display: flex;
+    align-items: end;
+    gap: 12px;
+    padding-top: 10px;
+}
+.bar-wrap {
+    flex: 1;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: end;
+    align-items: center;
+    gap: 9px;
+    color: var(--muted);
+    font-size: 12px;
+}
+.bar {
+    width: min(38px, 90%);
+    min-height: 8px;
+    border-radius: 8px 8px 3px 3px;
+    background: #bdeedc;
+    transition: height .4s;
+    animation: rise .7s ease both;
+}
+.bar:hover { background: var(--green); }
+.bar.today { background: var(--green); }
+@keyframes rise {
+    from { height: 0; }
+}
 
-        /* --- Navigation Menu --- */
-        .brand-logo {
-            font-size: 22px;
-            font-weight: 800;
-            letter-spacing: -0.5px;
-            margin-bottom: 32px;
-        }
-        .brand-logo span { color: var(--accent-green); }
+.goal-row {
+    display: flex;
+    justify-content: space-between;
+    gap: 12px;
+    margin: 22px 0 10px;
+}
+.progress {
+    background: var(--border);
+    height: 10px;
+    border-radius: 20px;
+    overflow: hidden;
+}
+.progress div {
+    height: 100%;
+    background: var(--green);
+    border-radius: 20px;
+    transition: width .5s;
+}
+.small { font-size: 13px; color: var(--muted); }
 
-        .nav-list {
-            list-style: none;
-            display: flex;
-            flex-direction: column;
-            gap: 8px;
-        }
+.challenge {
+    background: linear-gradient(135deg, #fff6e7, #ffe8c2);
+    color: #55350d;
+    border: 0;
+}
+.challenge p { color: #795a30; }
+.challenge .primary { background: #d98219; }
 
-        .nav-item button {
-            width: 100%;
-            padding: 12px 16px;
-            text-align: left;
-            border-radius: 10px;
-            color: var(--text-secondary);
-            font-weight: 600;
-            display: flex;
-            align-items: center;
-            gap: 12px;
-        }
+.expense {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    padding: 13px 0;
+    border-bottom: 1px solid var(--border);
+}
+.expense:last-child { border-bottom: 0; }
+.expense-name { font-weight: 700; font-size: 14px; }
+.expense-meta { font-size: 12px; color: var(--muted); margin-top: 5px; }
+.expense-amount { font-weight: 700; white-space: nowrap; }
+.empty { color: var(--muted); padding: 15px 0; }
 
-        .nav-item.active button, .nav-item button:hover {
-            background-color: var(--bg-primary);
-            color: var(--text-primary);
-        }
+footer { ORBIT FINANCE · YOUR MONEY. YOUR FUTURE. · DEMO DATA ONLY15px; font-size: 12px; }
 
-        /* --- Utility UI Elements --- */
-        .btn-pill {
-            border: 1px solid var(--border-color);
-            background-color: var(--bg-secondary);
-            color: var(--text-primary);
-            padding: 8px 16px;
-            border-radius: 20px;
-            font-weight: 600;
-        }
+.toast {
+    position: fixed;
+    bottom: 22px;
+    left: 50%;
+    transform: translate(-50%, 120px);
+    background: #172033;
+    color: white;
+    padding: 13px 20px;
+    border-radius: 12px;
+    transition: .3s;
+    z-index: 10;
+}
+.toast.show { transform: translate(-50%, 0); }
 
-        .btn-primary {
-            background-color: var(--accent-green);
-            color: #ffffff;
-            padding: 10px 20px;
-            border-radius: 10px;
-            font-weight: 700;
-        }
-        .btn-primary:hover { filter: brightness(0.95); }
-
-        .dashboard-grid {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 24px;
-            margin-bottom: 32px;
-        }
-
-        .content-panel {
-            background-color: var(--bg-secondary);
-            border: 1px solid var(--border-color);
-            border-radius: 16px;
-            padding: 24px;
-            box-shadow: var(--card-shadow);
-        }
-
-        .panel-span-2 { grid-column: span 2; }
-        .panel-span-3 { grid-column: span 3; }
-
-        .panel-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 20px;
-        }
-
-        .panel-title {
-            font-size: 18px;
-            font-weight: 700;
-        }
-
-        /* --- Core System Modules --- */
-        .workspace-view { display: none; }
-        .workspace-view.active-view { display: block; }
-
-        /* Module: Ledger Rows */
-        .ledger-row {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 14px 0;
-            border-bottom: 1px solid var(--border-color);
-        }
-        .ledger-row:last-child { border-bottom: none; }
-        .ledger-meta { font-size: 13px; color: var(--text-secondary); margin-top: 4px; }
-        .amount-neg { color: #ef4444; font-weight: 700; }
-        .amount-pos { color: var(--accent-green); font-weight: 700; }
-
-        /* Module: Allocation Allocator Bars */
-        .allocation-stack {
-            display: flex;
-            flex-direction: column;
-            gap: 16px;
-        }
-        .bar-container {
-            background-color: var(--bg-primary);
-            height: 12px;
-            border-radius: 6px;
-            overflow: hidden;
-            margin-top: 8px;
-        }
-        .fill-bar {
-            height: 100%;
-            border-radius: 6px;
-            transition: width 0.5s ease;
-        }
-
-        /* Module: Compound Engineering Inputs */
-        .form-grid {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 16px;
-            margin-bottom: 20px;
-        }
-        .input-group label {
-            display: block;
-            font-size: 13px;
-            font-weight: 700;
-            color: var(--text-secondary);
-            margin-bottom: 6px;
-        }
-        .input-group input, .input-group select {
-            width: 100%;
-            padding: 10px 14px;
-            border: 1px solid var(--border-color);
-            background-color: var(--bg-primary);
-            color: var(--text-primary);
-            border-radius: 8px;
-            font-size: 14px;
-        }
-
-        /* Custom Dynamic Graph Area */
-        .visual-graph-frame {
-            height: 240px;
-            display: flex;
-            align-items: flex-end;
-            gap: 16px;
-            padding-top: 20px;
-            border-bottom: 2px solid var(--border-color);
-        }
-        .graph-column {
-            flex: 1;
-            height: 100%;
-            display: flex;
-            flex-direction: column;
-            justify-content: flex-end;
-            align-items: center;
-            font-size: 11px;
-            color: var(--text-secondary);
-        }
-        .graph-pill-fill {
-            width: 100%;
-            max-width: 40px;
-            background-color: var(--accent-blue);
-            border-radius: 6px 6px 0 0;
-            transition: height 0.4s ease;
-        }
-
-        /* --- Toast Banner Notification --- */
-        .toast-banner {
-            position: fixed;
-            bottom: 32px;
-            right: 32px;
-            background-color: #0f172a;
-            color: #ffffff;
-            padding: 14px 24px;
-            border-radius: 12px;
-            font-weight: 600;
-            box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.3);
-            transform: translateY(100px);
-            opacity: 0;
-            transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
-            z-index: 1000;
-        }
-        .toast-banner.visible {
-            transform: translateY(0);
-            opacity: 1;
-        }
-
-        @media (max-width: 1024px) {
-            .dashboard-grid { grid-template-columns: 1fr; }
-            .panel-span-2, .panel-span-3 { grid-column: span 1; }
-        }
-    </style>
+@media (max-width: 760px) {
+    .grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .wide { grid-column: span 2; }
+    .welcome { align-items: flex-start; flex-direction: column; }
+}
+@media (max-width: 470px) {
+    header { padding: 18px; }
+    main { padding: 25px 14px; }
+    .grid { grid-template-columns: 1fr; }
+    .wide { grid-column: span 1; }
+    .header-right .pill { padding: 9px; }
+}
+</style>
 </head>
+
 <body>
 
-    <!-- Layout Navigation Sidebar -->
-    <aside class="sidebar">
-        <div class="brand-logo">ORBIT<span>PREMIUM</span></div>
-        <ul class="nav-list">
-            <li class="nav-item active" data-target="view-core"><button>📊 Overview Workspace</button></li>
-            <li class="nav-item" data-target="view-allocator"><button>💼 Asset Allocator</button></li>
-            <li class="nav-item" data-target="view-projections"><button>📈 Growth Modeler</button></li>
-        </ul>
-    </aside>
+<header>
+    <div class="logo">ORBIT<span> FINANCE</span></div>
+    <div class="header-right">
+        <button class="pill" id="themeBtn" aria-label="Toggle dark mode">🌙 Dark</button>
+        <button class="pill" id="resetBtn">↺ Reset demo</button>
+    </div>
+</header>
 
-    <!-- Main Workspace Container Space -->
-    <div class="main-wrapper">
-        <header>
-            <div id="greeting-string">Welcome back, Executive Workspace</div>
-            <div style="display: flex; gap: 12px;">
-                <button class="btn-pill" id="theme-toggle">🌙 Dark Mode</button>
-                <button class="btn-pill" id="system-reset">↺ Reset Engine</button>
+<main>
+    <section class="welcome">
+        <div>
+            <div class="eyebrow">YOUR MONEY, YOUR FUTURE</div>
+            <h1>Money looks good on you. ✨</h1>
+            <p>Here's your financial snapshot. Make every move count.</p>
+        </div>
+        <button class="primary" id="addBtn">＋ Add expense</button>
+    </section>
+
+    <section class="grid">
+
+        <article class="card balance">
+            <div class="card-title">💳 Available balance <span>DEMO</span></div>
+            <div class="amount" id="balance">₺12,450</div>
+            <p>Your money. Your next move.</p>
+            <button id="hideBtn">◉ Hide balance</button>
+        </article>
+
+        <article class="card">
+            <div class="card-title">📈 Monthly income <span>↗</span></div>
+            <div class="amount">₺18,000</div>
+            <div class="positive">Sample monthly income</div>
+        </article>
+
+        <article class="card">
+            <div class="card-title">🧾 Monthly expenses <span>↘</span></div>
+            <div class="amount" id="totalSpent">₺5,550</div>
+            <div class="small">Includes sample expenses</div>
+        </article>
+
+        <article class="card wide">
+            <h2 class="section-title">📊 Spending this week</h2>
+            <p>Explore the bars to see each day's sample spending.</p>
+            <div class="chart" id="chart"></div>
+        </article>
+
+        <article class="card">
+            <h2 class="section-title">🎯 Dream fund</h2>
+            <p>Every little step brings your goal closer.</p>
+            <div class="goal-row">
+                <strong id="saved">₺3,200</strong>
+                <span class="small">Goal: ₺5,000</span>
             </div>
-        </header>
+            <div class="progress"><div id="progressBar" style="width:64%"></div></div>
+            <p class="small" id="goalText">64% of your goal reached!</p>
+            <button class="primary" id="saveBtn">＋ Add ₺100 to savings</button>
+        </article>
 
-        <main class="content-container">
+        <article class="card challenge">
+            <div class="eyebrow" style="color:#b46a0b">🔥 LEVEL UP</div>
+            <h2 class="section-title" style="margin-top:12px">7-Day Saver Challenge</h2>
+            <p id="challengeText">Can you complete today's money-saving mission?</p>
+            <strong id="streak">Day 1 of 7</strong>
+            <div style="margin-top:18px">
+                <button class="primary" id="challengeBtn">Complete today's mission</button>
+            </div>
+        </article>
 
-            <!-- MODULE 1: GLOBAL DASHBOARD OVERVIEW -->
-            <div id="view-core" class="workspace-view active-view">
-                <div class="dashboard-grid">
-                    <div class="content-panel">
-                        <div class="panel-title" style="color: var(--text-secondary); font-size: 14px;">Total Liquid Liquidity</div>
-                        <div id="total-liquidity-value" style="font-size: 32px; font-weight: 800; margin: 12px 0;">₺0.00</div>
-                        <span style="color: var(--accent-green); font-size: 13px; font-weight: 600;">✓ Accounts synchronized verified</span>
-                    </div>
+        <article class="card wide">
+            <h2 class="section-title">💸 Recent transactions</h2>
+            <div id="transactions"></div>
+        </article>
+
+        <article class="card">
+            <h2 class="section-title">⚡ Smart money tip</h2>
+            <p id="tip">Small expenses add up. Review your spending before making your next purchase.</p>
+            <button class="pill" id="tipBtn">Give me another tip ↗</button>
+        </article>
+
+    </section>
+</main>
+
+<footer>
+    VAULT FINANCE · A LEARNING PROJECT · DEMO DATA ONLY
+    <br><br>
+    No real bank connection or financial account is connected.
+</footer>
+
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+<script>
+const initialTransactions = [
+    { name: "🛒 Groceries", category: "Food & essentials", amount: 850 },
+    { name: "☕ Coffee with friends", category: "Lifestyle", amount: 180 },
+    { name: "🚌 Transportation", category: "Travel", amount: 120 },
+    { name: "🎧 Entertainment", category: "Fun", amount: 400 }
+];
+
+let transactions = [...initialTransactions];
+let saved = 3200;
+let challengeDay = 1;
+let balanceHidden = false;
+let originalBalance = 12450;
+
+const tips = [
+    "Small expenses add up. Review your spending before making your next purchase.",
+    "Try waiting 24 hours before buying something you don't really need.",
+    "Save a small amount regularly instead of waiting for the perfect moment.",
+    "Before payday, list your essential expenses and upcoming bills.",
+    "Compare prices before buying. A little research can make a real difference.",
+    "Set a specific goal for your savings. Knowing why you're saving makes it easier."
+];
+
+function money(n) {
+    return "₺" + n.toLocaleString("en-US");
+}
+
+function showToast(message) {
+    const toast = document.getElementById("toast");
+    toast.textContent = message;
+    toast.classList.add("show");
+    setTimeout(() => toast.classList.remove("show"), 2300);
+}
+
+function renderTransactions() {
+    const el = document.getElementById("transactions");
+
+    if (!transactions.length) {
+        el.innerHTML = '<div class="empty">No expenses yet. Add your first demo expense!</div>';
+    } else {
+        el.innerHTML = transactions.map(t => `
+            <div class="expense">
+                <div>
+                    <div class="expense-name">${t.name}</div>
+                    <div class="expense-meta">${t.category}</div>
+                </div>
+                <div class="expense-amount">−${money(t.amount)}</div>
+            </div>
+        `).join("");
+    }
+
+    const total = transactions.reduce((sum, t) => sum + t.amount, 0);
+    document.getElementById("totalSpent").textContent = money(total);
+    document.getElementById("balance").textContent =
+        balanceHidden ? "••••••" : money(originalBalance - (total - 1550));
+}
+
+function renderChart() {
+    const days = [
+        { day: "Mon", value: 180 },
+        { day: "Tue", value: 260 },
+        { day: "Wed", value: 120 },
+        { day: "Thu", value: 340 },
+        { day: "Fri", value: 220 },
+        { day: "Sat", value: 390 },
+        { day: "Sun", value: 150 }
+    ];
+
+    const max = Math.max(...days.map(d => d.value));
+
+    document.getElementById("chart").innerHTML = days.map((d, i) => `
+        <div class="bar-wrap" title="${d.day}: ${money(d.value)}">
+            <div class="bar ${i === 6 ? "today" : ""}"
+                style="height:${(d.value / max) * 100}%"
+                aria-label="${d.day}: ${money(d.value)}"></div>
+            <span>${d.day}</span>
+        </div>
+    `).join("");
+}
+
+function renderGoal() {
+    const percent = Math.min(100, Math.round(saved / 5000 * 100));
+    document.getElementById("saved").textContent = money(saved);
+    document.getElementById("progressBar").style.width = percent + "%";
+    document.getElementById("goalText").textContent =
+        percent + "% of your goal reached!";
+}
+
+document.getElementById("addBtn").addEventListener("click", () => {
+    const amount = prompt("Enter a sample expense amount in Turkish lira (₺):");
+
+    if (amount === null) return;
+
+    const value = Number(amount);
+
+    if (!Number.isFinite(value) || value <= 0 || value > 1000000) {
+        showToast("Please enter a valid amount.");
+        return;
+    }
+
+    transactions.unshift({
+        name: "🛍️ New demo expense",
+        category: "Added just now",
+        amount: Math.round(value * 100) / 100
+    });
+
+    renderTransactions();
+    showToast("Demo expense added!");
+});
+
+document.getElementById("saveBtn").addEventListener("click", () => {
+    if (saved >= 5000) {
+        showToast("Goal achieved! Amazing work! 🎉");
+        return;
+    }
+
+    saved = Math.min(5000, saved + 100);
+    renderGoal();
+    showToast("₺100 added to demo savings! 🎯");
+});
+
+document.getElementById("challengeBtn").addEventListener("click", () => {
+    if (challengeDay >= 7) {
+        showToast("You've completed the 7-day demo challenge! 🏆");
+        return;
+    }
+
+    challengeDay++;
+    document.getElementById("streak").textContent = "Day " + challengeDay + " of 7";
+    document.getElementById("challengeText").textContent =
+        "Mission complete! Come back tomorrow for your next challenge.";
+    document.getElementById("challengeBtn").textContent =
+        challengeDay === 7 ? "Finish challenge 🏆" : "Next mission unlocked";
+    showToast("Challenge progress updated! 🔥");
+});
+
+document.getElementById("themeBtn").addEventListener("click", () => {
+    document.body.classList.toggle("dark");
+    const dark = document.body.classList.contains("dark");
+    document.getElementById("themeBtn").textContent = dark ? "☀️ Light" : "🌙 Dark";
+});
+
+document.getElementById("hideBtn").addEventListener("click", () => {
+    balanceHidden = !balanceHidden;
+    document.getElementById("hideBtn").textContent =
+        balanceHidden ? "◉ Show balance" : "◉ Hide balance";
+    renderTransactions();
+});
+
+document.getElementById("tipBtn").addEventListener("click", () => {
+    const current = tips.indexOf(document.getElementById("tip").textContent);
+    document.getElementById("tip").textContent =
+        tips[(current + 1) % tips.length];
+});
+
+document.getElementById("resetBtn").addEventListener("click", () => {
+    transactions = [...initialTransactions];
+    saved = 3200;
+    challengeDay = 1;
+    balanceHidden = false;
+    originalBalance = 12450;
+
+    document.getElementById("challengeText").textContent =
+        "Can you complete today's money-saving mission?";
+    document.getElementById("streak").textContent = "Day 1 of 7";
+    document.getElementById("challengeBtn").textContent =
+        "Complete today's mission";
+    document.getElementById("hideBtn").textContent = "◉ Hide balance";
+
+    renderTransactions();
+    renderGoal();
+    showToast("Demo dashboard reset!");
+});
+
+renderTransactions();
+renderChart();
+renderGoal();
+</script>
+
+</body>
+</html>
